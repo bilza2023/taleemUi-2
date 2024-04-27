@@ -1,0 +1,7 @@
+
+node_modules
+/build
+/.svelte-kit
+.env
+.git
+#24 oct - 24 jan 90 days

@@ -85,10 +85,12 @@ try{
   <div class='flex justify-center   p-2 '>
    <HdgWithIcon bgColor='bg-stone-600' icon={Icons.TEST}>{tcode}</HdgWithIcon>
   </div>
-  {#if questions}
   
-  <Summary {questions} />
-  
+  <!-- <Summary {questions} /> -->
+  <div class="flex">
+    <div class="w-2/12">
+      {#if questions}
+
   <SideBar 
   
   {chapter_map_array}
@@ -98,16 +100,27 @@ try{
   {selectedEx}
   {setEx}
   />
-  
-  <!-- <HdgWithIcon>{`Chapter Total: ${chapterTotalQuestions}`}</HdgWithIcon> -->
+
+
   <div class='flex justify-start text-xs p-1 m-1 '>
-  {`Total Chapter Questions: ${chapterTotalQuestions}`}
+    {`Total Chapter Questions: ${chapterTotalQuestions}`}
+    </div>
+    
+    {/if}  
+    </div>
+    <div class="w-10/12">
+      {#if questions}
+  
+        
+        <Questions {questions} {selectedEx} {isAdmin} {tcode}/>
+        
+      {/if}
+    </div>
   </div>
   
-  <Questions {questions} {selectedEx} {isAdmin} {tcode}/>
+  <!-- <HdgWithIcon>{`Chapter Total: ${chapterTotalQuestions}`}</HdgWithIcon> -->
   
   <br/>
-  {/if}
   <br>
   <br>
   <br>

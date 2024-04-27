@@ -1,8 +1,7 @@
 
 <script>
     //@ts-nocheck
-    // import Dd2 from "./Dd2.svelte";
-//   import Exercises from "./Exercises.svelte";
+    import { fade,fly } from 'svelte/transition';
   export let chapter_map_array;
   export let setChapter;
   export let selectedChapter;
@@ -13,25 +12,27 @@
 </script>
 
 
-<div class="p-4 m-1 border-2 border-white rounded-lg">
+<div class="p-4 m-1 border-2 border-white rounded-lg max-h-screen overflow-y-auto">
 
 
-    <div class="flex justify-center">
+    <!-- <div class="flex justify-center">
         <div class=" text-white w-8/12 text-center rounded-md mb-2">
             Chapters
         </div>
-    </div>
+    </div> -->
     
     <div class="flex flex-col justify-center w-full flex-wrap ">
     {#each  chapter_map_array as chapterObj }
-    <button on:click={()=>setChapter(chapterObj.chapter)}  class={`p-1 m-1 rounded-lg  px-2 ${selectedChapter== chapterObj.chapter ? 'bg-stone-600':'bg-gray-600' }`}>Chapter: {chapterObj.chapter}</button>
+    <button on:click={()=>setChapter(chapterObj.chapter)}  class={`p-1 m-1 rounded-lg  px-2 ${selectedChapter== chapterObj.chapter ? 'bg-stone-600 text-red-600':'bg-gray-700' }`}>Chapter: {chapterObj.chapter}</button>
         
-        {#each  chapterObj.exercises as exercise } 
+        {#if chapterObj.chapter == selectedChapter}
+        <div class="bg-stone-600 p-2 rounded-md flex flex-col"  in:fade={{ duration: 400 }} out:fade={{ duration: 1000 }}>
+            {#each  chapterObj.exercises as exercise }  
+            <button on:click={()=>setEx(exercise) }  class={`p-1 m-1 rounded-lg  px-2 mx-6 ${selectedEx== exercise? 'bg-gray-800 text-red-600':'bg-gray-400' }`}>Ex: {exercise}</button>
+            {/each}
+        </div>
+        {/if}
         
-        <button on:click={()=>setEx(exercise) }  class={`p-1 m-1 rounded-lg  px-2 ${selectedEx== exercise? 'bg-gray-400':'bg-gray-600' }`}>{exercise}</button>
-        
-        {/each}
-    
     {/each}
     </div>
     

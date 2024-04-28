@@ -1,6 +1,6 @@
 <script>
 //@ts-nocheck
-import MainNav from '$lib/appComp/MainNav.svelte';
+import Nav from '$lib/appComp/Nav.svelte';
 import {PageWrapper,HdgWithIcon,Centre,SectionHead,FormRow,InputElm,NumberElm,Comment,BtnWIconSm , BtnWIcon,FormElm,Lbl} from '$lib/cmp';
 import { Icons,ajaxPost,API_URL,toast } from '$lib/util';
 
@@ -24,7 +24,7 @@ async function changePassword(){
 }
 </script>
 
-<MainNav/>
+<Nav/>
 <PageWrapper>
 <br/><br/>
 

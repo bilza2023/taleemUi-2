@@ -3,7 +3,7 @@
   import { PageWrapper,HdgWithIcon } from '$lib/cmp';
   import { API_URL,onMount,toast,Icons,goto,checkToken,checkAdminToken,ajaxPost } from '$lib/util';
   // import Nav from '$lib/appComp/Nav.svelte';
-  import MainNav from '$lib/appComp/MainNav.svelte';
+  import Nav from '$lib/appComp/Nav.svelte';
   
   import SideBar from './SideBar.svelte';
   import ExerciseQs from "./ExerciseQs.svelte";
@@ -18,7 +18,7 @@
   let selectedChapter = 1;
   let chapterTotalQuestions = 0;
   let chapter_map_array=[];
-  let exercise_bucket=[];
+  // let exercise_bucket=[];
   
   $:  {
     if (questions){
@@ -34,19 +34,19 @@
   
   function setChapter(newChapter){
   selectedChapter = newChapter;
-  setExBucket(selectedChapter);
+  // setExBucket(selectedChapter);
   }
   
-  function setExBucket(selectedChapter){
-    for (let i = 0; i < chapter_map_array.length; i++) {
-      const chapterObj = chapter_map_array[i];
-          if(chapterObj.chapter == selectedChapter){
-              exercise_bucket = chapterObj.exercises;
-              setEx(exercise_bucket[0]);
-              continue; 
-          }
-    } 
-  }
+  // function setExBucket(selectedChapter){
+  //   for (let i = 0; i < chapter_map_array.length; i++) {
+  //     const chapterObj = chapter_map_array[i];
+  //         if(chapterObj.chapter == selectedChapter){
+  //             exercise_bucket = chapterObj.exercises;
+  //             setEx(exercise_bucket[0]);
+  //             continue; 
+  //         }
+  //   } 
+  // }
   
 onMount(async () => {
 try{
@@ -61,6 +61,7 @@ try{
       const data = await resp.json();
       // console.log("data",data);
       questions = data.data.syllabus; //data.data.syllabus
+      debugger;
       chapter_map_array = await chapter_map(questions);
       // console.log("map",chapter_map_array);
       setChapter(chapter_map_array[0].chapter);
@@ -79,7 +80,7 @@ try{
 
   ////////////////////////////////////////////////////////
   </script>
-  <MainNav {isAdmin} {isLogin}/>
+  <Nav {isAdmin} {isLogin}/>
   <PageWrapper>
   
   <div class='flex justify-center   p-2 '>
@@ -96,7 +97,7 @@ try{
   {chapter_map_array}
   {setChapter}
   {selectedChapter}
-  {exercise_bucket}
+  
   {selectedEx}
   {setEx}
   />

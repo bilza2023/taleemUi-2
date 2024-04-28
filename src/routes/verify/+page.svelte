@@ -3,10 +3,10 @@
 import {PageWrapper} from '$lib/cmp';
 import { goto } from '$lib/util';
 
-import MainNav from '$lib/appComp/MainNav.svelte';
+import nNav from '$lib/appComp/Nav.svelte';
 </script>
 
-<MainNav/>
+<Nav/>
 <PageWrapper>
 <br/><br/>
 

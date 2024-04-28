@@ -8,10 +8,10 @@ import loginFn from '$lib/loginFns/loginFn';
 let email ="";
 let password =""; 
 
-import MainNav from '../../lib/appComp/MainNav.svelte';
+import Nav from '../../lib/appComp/Nav.svelte';
 </script>
 
-<MainNav/>
+<Nav/>
 <PageWrapper>
 <br/><br/>
 

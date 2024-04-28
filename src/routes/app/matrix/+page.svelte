@@ -3,7 +3,7 @@
 // @ts-nocheck
 import {toast} from '$lib/util';
 import {PageWrapper,HdgWithIcon} from '$lib/cmp';
-import MainNav from '$lib/appComp/MainNav.svelte';
+import Nav from '$lib/appComp/Nav.svelte';
 import Table from './Table.svelte';
 import { sqrt,det,transpose,inv } from 'mathjs';
 import VerticalBtnsTbl from './VerticalBtnsTbl.svelte';
@@ -52,7 +52,7 @@ const delCol = () => {
 
 </script>
 
-<MainNav/>
+<Nav/>
 <!-- ************** -->
 <PageWrapper>
 <div class='flex justify-center'>

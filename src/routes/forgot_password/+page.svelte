@@ -2,7 +2,7 @@
 //@ts-nocheck
 import {PageWrapper,HdgWithIcon,Centre,SectionHead,FormRow,InputElm,NumberElm,Comment,BtnWIconSm , BtnWIcon,FormElm,Lbl} from '$lib/cmp';
 import { Icons,API_URL,ajaxPost } from '$lib/util';
-import MainNav from '$lib/appComp/MainNav.svelte';
+import Nav from '$lib/appComp/Nav.svelte';
 import { toast } from '@zerodevx/svelte-toast';
 
 let email ="";
@@ -21,7 +21,7 @@ if(resp.ok){
 
 </script>
 
-<MainNav/>
+<Nav/>
 <PageWrapper>
 <br/><br/>
 

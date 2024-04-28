@@ -50,7 +50,8 @@ $: totalExQuestion = questions.filter(question => question.exercise === selected
 {#if sortedArray}
 <div class='flex  w-full justify-center  flex-wrap  '>
 {#each sortedArray as question,index}    
-    {#if question.exercise == selectedEx && question.status == 'final' }
+    <!-- {#if question.exercise == selectedEx && question.status == 'final' } -->
+    {#if question.exercise == selectedEx }
         
             <div class='w-3/12'>
 

@@ -2,23 +2,8 @@
 //@ts-nocheck
 import { Card } from '$lib/cmp';
 import {Icons,onMount } from '$lib/util';
-export let questions;
 export let tcode;
-export let selectedEx;
-let sortedArray=[];
- 
-
-$:{
-  selectedEx;  
-  if(questions){
-  let filteredQuestions = questions.filter(question => question.exercise === selectedEx);
-  sortedArray =  filteredQuestions.sort((a, b) =>  a.sortOrder - b.sortOrder );
-  }  
-//   console.log("sortedArray",sortedArray);
-}
-
-    let showQs=true;
-    // let sortedArray;
+export let selectedQuestions;
     
     
 function getTitle(question){
@@ -35,24 +20,23 @@ function getTitle(question){
 }
 
 
-$: totalExQuestion = questions.filter(question => question.exercise === selectedEx).length
+// $: totalExQuestion = questions.filter(question => question.exercise === selectedEx).length
 
 </script>
 
 <div class="bg-gray-700 p-2 m-2 rounded-md">
-    <div class="text-center w-full">
+    <!-- <div class="text-center w-full">
     <button class="p-1 m-1 bg-gray-800 rounded-md "
     on:click={()=>showQs = !showQs}
     >
     Total Exercise Questions ({`${totalExQuestion}`})
     </button>
-    </div>
-{#if sortedArray}
+    </div> -->
+
 <div class='flex  w-full justify-center  flex-wrap  '>
-{#each sortedArray as question,index}    
+{#each selectedQuestions as question,index}    
     <!-- {#if question.exercise == selectedEx && question.status == 'final' } -->
-    {#if question.exercise == selectedEx }
-        
+    
             <div class='w-3/12'>
 
             <Card
@@ -63,8 +47,7 @@ $: totalExQuestion = questions.filter(question => question.exercise === selected
 
             </Card>
             </div>
-        {/if}
 {/each}
     </div>
-{/if}    
+    
 </div>    

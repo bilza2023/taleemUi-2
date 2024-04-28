@@ -5,66 +5,33 @@
   // import Nav from '$lib/appComp/Nav.svelte';
   import Nav from '$lib/appComp/Nav.svelte';
   
-  import SideBar from './SideBar.svelte';
-  import ExerciseQs from "./ExerciseQs.svelte";
-  import Questions from "./Questions.svelte";
+  
+  import SyllabusComp from '$lib/appComp/syllabusComp/SyllabusComp.svelte';
   import Summary from '$lib/appComp/Summary.svelte';
-  import chapter_map from "./fn/chapter_map";
-  // import getSyllabus from '$lib/appComp/getSyllabus';
+  
   let tcode; 
   /////////////////////////////////
   let questions;
-  let selectedEx ="1.1";
-  let selectedChapter = 1;
-  let chapterTotalQuestions = 0;
-  let chapter_map_array=[];
-  // let exercise_bucket=[];
   
-  $:  {
-    if (questions){
-      chapterTotalQuestions = questions.filter(question => question.chapter == selectedChapter).length;
-    }
-  }
-  function setEx(ex){
-    selectedEx = ex;
-  }
   
+  
+ 
   let isLogin = false;
   let isAdmin = false;
   
-  function setChapter(newChapter){
-  selectedChapter = newChapter;
-  // setExBucket(selectedChapter);
-  }
   
-  // function setExBucket(selectedChapter){
-  //   for (let i = 0; i < chapter_map_array.length; i++) {
-  //     const chapterObj = chapter_map_array[i];
-  //         if(chapterObj.chapter == selectedChapter){
-  //             exercise_bucket = chapterObj.exercises;
-  //             setEx(exercise_bucket[0]);
-  //             continue; 
-  //         }
-  //   } 
-  // }
   
 onMount(async () => {
 try{
     
     tcode = new URLSearchParams(location.search).get("tcode");
-    ///---it came to this
-
     const resp = await ajaxPost( `${API_URL}/command` , { command : "getSyllabus" ,tcode } );
 
 /////////////////////    
     if (resp){
       const data = await resp.json();
-      // console.log("data",data);
       questions = data.data.syllabus; //data.data.syllabus
-      debugger;
-      chapter_map_array = await chapter_map(questions);
-      // console.log("map",chapter_map_array);
-      setChapter(chapter_map_array[0].chapter);
+      
       isLogin = checkToken();
       isAdmin = checkAdminToken();
     }else {
@@ -88,44 +55,13 @@ try{
   </div>
   
   <!-- <Summary {questions} /> -->
-  <div class="flex">
-    <div class="w-2/12">
-      {#if questions}
-
-  <SideBar 
-  
-  {chapter_map_array}
-  {setChapter}
-  {selectedChapter}
-  
-  {selectedEx}
-  {setEx}
-  />
-
-
-  <div class='flex justify-start text-xs p-1 m-1 '>
-    {`Total Chapter Questions: ${chapterTotalQuestions}`}
-    </div>
-    
-    {/if}  
-    </div>
-    <div class="w-10/12">
-      {#if questions}
-  
-        
-        <Questions {questions} {selectedEx} {isAdmin} {tcode}/>
-        
-      {/if}
-    </div>
-  </div>
+  {#if questions}
+  <!-- <SyllabusComp  {questions} {tcode} uiMode={false}/> -->
+  <SyllabusComp  {questions} {tcode} />
+  {/if}
   
   <!-- <HdgWithIcon>{`Chapter Total: ${chapterTotalQuestions}`}</HdgWithIcon> -->
   
-  <br/>
-  <br>
-  <br>
-  <br>
-  <br>
   <br>
   <br>
   <br>

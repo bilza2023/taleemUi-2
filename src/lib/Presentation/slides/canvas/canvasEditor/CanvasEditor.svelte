@@ -1,18 +1,30 @@
 <script>
   //@ts-nocheck
-  import { onMount,toast } from '$lib/util';
+  import { toast } from '$lib/util';
   
   import {getNewItem} from '$lib/Presentation';
-  
+  import CanvasCommand from "./json-ui/commands/CanvasCommand.svelte";  
   import EditorToolbar from './EditorToolbar.svelte';
-  import CanvasCommand from "./json-ui/commands/CanvasCommand.svelte";
+  import Toolbar from "./json-ui/Toolbar.svelte";
   import CanvasPlayer from '../canvasPlayer/CanvasPlayer.svelte';  
+  import SelectItemMenu from './json-ui/SelectItemMenu.svelte';  
+  import CommandUi from './json-ui/CommandUi.svelte';  
   import UiEntry from "./json-ui/UiEntry.svelte";
 
   export let items;
   export let extra;
   export let currentTime;
+  let itemIndexInRightBar =0;
+  let showCanvasInSdieBar =true;
+  let ignoreShowAt =true;
 
+  function toggleIgnoreShowAt(){
+    ignoreShowAt = !ignoreShowAt;
+  }
+  // let itemInRightBar = null;
+  function toggleShowCanvas(){showCanvasInSdieBar = !showCanvasInSdieBar;}
+  
+  // $:{itemIndexInRightBar; itemInRightBar = items[itemIndexInRightBar];}
 
   function addNewItem(data){
     const newItem = getNewItem();
@@ -22,31 +34,34 @@
   }
 
   function moveUp(index) {
-    //debugger;
-      if (index < items.length) {
-          const item = items.splice(index, 1)[0];
-          items.splice(index - 1, 0, item);
-          items = [...items];
-      }
-  }
-
-  function moveDown(index) {
-    // debugger;
-  if (index >= 0 && index < items.length) {
-    const item = items[index];
-    items.splice(index, 1);
-    items.splice(index + 1, 0, item);
-    items = [...items];
-  }
+    debugger;
+    if (index > 0 && index < items.length) {
+        const item = items.splice(index, 1)[0];
+        items.splice(index - 1, 0, item);
+        items = [...items];
+    }
 }
 
-  function clone(index) {
+
+function moveDown(index) {
     // debugger;
-  if (index >= 0 && index < items.length) {
-      items.unshift(items[index]);
-      items = [...items];
-  }
- }
+    if (index >= 0 && index < items.length - 1) {
+        const item = items[index];
+        items.splice(index, 1);
+        items.splice(index + 1, 0, item);
+        items = [...items];
+    }
+}
+
+
+function clone(index) {
+    // debugger;
+    if (index >= 0 && index < items.length) {
+        const clonedItem = JSON.parse(JSON.stringify(items[index]));
+        items.unshift(clonedItem);
+        items = [...items];
+    }
+}
 
  function del(index) {
       items.splice(index, 1);
@@ -77,6 +92,8 @@
           "lineWidth": 1,
           "color": "red",
           "fill": false,
+          "useShowHide": false,
+          "showAt": 0,
               "dash": 0,
               "globalAlpha" : 1,
               "gap": 0,
@@ -95,6 +112,8 @@
           "color": "red",
           "fill": false,
           "globalAlpha" : 1,
+          "useShowHide": false,
+          "showAt": 0,
               "lineWidth": 1,
               "dash": 0,
               "gap": 0,
@@ -115,6 +134,8 @@
           "color": "red",
           "lineWidth": 1,
           "globalAlpha" : 1,
+          "useShowHide": false,
+          "showAt": 0,
           "showHandle" : false,
           "dash": 0,
           "gap": 0,
@@ -132,10 +153,12 @@
           "height": 100,
           "color": "red",
           "filled": true,
-              "lineWidth": 1,
-              "globalAlpha" : 1,
-              "dash": 0,
-              "gap": 0,
+          "useShowHide": false,
+          "showAt": 0,
+          "lineWidth": 1,
+          "globalAlpha" : 1,
+          "dash": 0,
+          "gap": 0,
           });
   }
   function addAngleSymbol(){
@@ -150,6 +173,8 @@
           "startAngle": -90,
           "endAngle" : 0,
           "lineWidth" : 1,
+          "useShowHide": false,
+          "showAt": 0,
           "showOrigin" : false,
           "color" : 'black'
           });
@@ -164,6 +189,8 @@
           "label": "label",
           "dot_width": 10,
           "dot_color": "red",
+          "useShowHide": false,
+          "showAt": 0,
           "text_color": "yellow",
           "text_size": 24,
           "fill": true,
@@ -191,6 +218,8 @@
               "cellWidth": 50,
               "cellHeight": 50,
               "lineWidth": 1,
+              "useShowHide": false,
+              "showAt": 0,
               "lineColor": "green"
           });
     
@@ -205,6 +234,8 @@
               "y": 0,
               "width": 300,
               "height": 300,
+              "useShowHide": false,
+              "showAt": 0,
               "globalAlpha" : 1
     });
   }
@@ -218,6 +249,8 @@
               "filled": false,
               "lineWidth": 1,
               "globalAlpha" : 1,
+              "useShowHide": false,
+          "showAt": 0,
               "dash": 0,
               "gap": 0
     });
@@ -237,6 +270,8 @@
               "lineWidth": 2,
               "filled": false,
               "globalAlpha" : 1,
+              "useShowHide": false,
+          "showAt": 0,
               "dash": 0,
               "gap": 0,
     });
@@ -252,6 +287,8 @@
               "color": "black",
               "lineWidth": 1,
               "globalAlpha" : 1,
+              "useShowHide": false,
+          "showAt": 0,
               "dash": 0,
               "gap": 0,
     });
@@ -268,6 +305,8 @@
               "color": "black",
               "lineWidth": 2,
               "globalAlpha" : 1,
+              "useShowHide": false,
+          "showAt": 0,
               "dash": 0,
               "gap": 0,
     });
@@ -319,6 +358,8 @@
               "startArrow": true,
               "endArrow": true,
               "globalAlpha" : 1,
+              "useShowHide": false,
+          "showAt": 0,
               "dash": 0,
               "gap": 0,
     });
@@ -334,6 +375,8 @@
       "xFactor": 25,
       "yFactor": 0,
       "width": 5,
+      "useShowHide": false,
+          "showAt": 0,
       "color": "yellow",
     });
   }
@@ -348,6 +391,8 @@
       "xFactor": 4,
       "yFactor": 0,
       "color": "black",
+      "useShowHide": false,
+          "showAt": 0,
       "font": "20px Arial"
     });
   }
@@ -368,6 +413,8 @@
      "xOffset"        : 0,
      "shadowColor" : "gray",
      "globalAlpha" : 1,
+     "useShowHide": false,
+          "showAt": 0,
      "shadowBlur" : 0
   });
   }
@@ -384,11 +431,13 @@
      "shadowOffsetX" : 0,
      "shadowOffsetY" : 0,
      "shadowColor" : "gray",
+     "useShowHide": false,
+          "showAt": 0,
      "globalAlpha" : 1,
      "shadowBlur" : 0
   });
   }
-  
+  function redraw(){items = [...items];}
 </script>
 
 {#if items}
@@ -414,28 +463,30 @@
 {addBezier}
 {addLines}
 {addPara}
+{toggleShowCanvas}
+{toggleIgnoreShowAt}
+{ignoreShowAt}
 />
-  
+   
 <!-- ////////////////////////////////////////////////////////  -->
-<div class='flex justify-between'>
+<div class='flex justify-between gap-2'>
 
-<div class='w-70 '>
-  <CanvasPlayer {items} {extra}/>
+<div class='w-75'>
+  <CanvasPlayer {items} {extra} pulse = {currentTime} {ignoreShowAt}/>
 </div> 
 
 <!-- div for json-ui -->
-<div class='w-30'>
-          <div class='flex flex-col'>
-              {#each items  as item,index}
-                  <div class="flex justify-center bg-stone-700 p-1 m-1 rounded-md border-2 border-white ">                       
-                      <div class="flex flex-col w-full">                           
-                        <UiEntry bind:item={item.extra} moveUp={moveUp} moveDown={moveDown} {del} {index} {clone} />
-                      </div> 
-                  </div>
-              {/each}
-          </div>
-
-          <CanvasCommand  bind:extra={extra}   />
+<div class='w-25 max-w-[25%] min-w-[25%]  bg-stone-600 rounded-md p-2'>
+          
+  
+          {#if showCanvasInSdieBar}
+              <SelectItemMenu {items} bind:itemIndexInRightBar={itemIndexInRightBar}/>
+              <CommandUi  bind:item={items[itemIndexInRightBar]}  {redraw}/>
+              <Toolbar  index={itemIndexInRightBar}  {moveUp} {moveDown} {del}  {clone}/>
+          {:else}
+              <CanvasCommand  bind:extra={extra}   />
+          {/if}
+          
 </div>
 </div>
 

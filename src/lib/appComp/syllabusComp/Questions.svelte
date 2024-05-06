@@ -1,11 +1,23 @@
 <script>
 //@ts-nocheck
 import { Card } from '$lib/cmp';
-import {Icons,onMount } from '$lib/util';
+import {Icons,toast,ajaxPost,API_URL } from '$lib/util';
 export let tcode;
 export let selectedQuestions;
+export let uiMode;
     
-    
+async function save(e,id){
+    const sortOrder = e.target.value;
+
+// console.log("e",e.target.value,"id",id);
+const resp = await ajaxPost( `${API_URL}/command` , { command : "update" ,tcode,	question:{"_id" : id , "sortOrder" : sortOrder} } );
+
+  if(resp.ok){
+    toast.push('saved');}
+    else {toast.push('failed to saved');
+  }
+}    
+     
 function getTitle(question){
     
     if (question.name && question.name !== ''){
@@ -19,21 +31,19 @@ function getTitle(question){
     }
 }
 
-
-// $: totalExQuestion = questions.filter(question => question.exercise === selectedEx).length
-
+function getStatusIcon(status){
+  if (status == 'empty') {return '🧊'  }
+  if (status == 'filled' ) {return Icons.PENCIL }
+  if (status == 'locked') {return '🔒' }
+  if (status == 'final') {return Icons.STUDENTCAP }
+}
 </script>
-
-<div class="bg-gray-700 p-2 m-2 rounded-md">
-    <!-- <div class="text-center w-full">
-    <button class="p-1 m-1 bg-gray-800 rounded-md "
-    on:click={()=>showQs = !showQs}
-    >
-    Total Exercise Questions ({`${totalExQuestion}`})
-    </button>
-    </div> -->
-
-<div class='flex  w-full justify-center  flex-wrap  '>
+{#if selectedQuestions.length <= 0 }
+<div class="flex justify-center w-full">
+    <h1 class="bg-stone-600 p-2 m-2 rounded-lg">No Question found!</h1>
+</div>
+{:else}
+<div class='flex  bg-gray-700 p-2 m-2 rounded-md w-full justify-center  flex-wrap  '>
 {#each selectedQuestions as question,index}    
     <!-- {#if question.exercise == selectedEx && question.status == 'final' } -->
     
@@ -42,12 +52,12 @@ function getTitle(question){
             <Card
             title = {getTitle(question)}
             icon={Icons.TEST}
-            url = {`/player?tcode=${tcode}&id=${question._id}`}
+            url ={`/player?tcode=${tcode}&filename=${question.filename}`}
             >
+                
 
             </Card>
             </div>
 {/each}
-    </div>
-    
-</div>    
+</div>
+{/if}

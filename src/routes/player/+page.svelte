@@ -38,6 +38,7 @@ let questionData;
 
 onMount(async ()=>{  
 //questionType ['paid', 'login' , 'free'],
+debugger;
 filename = new URLSearchParams(location.search).get("filename");
 tcode = new URLSearchParams(location.search).get("tcode");
 ////////////////////////

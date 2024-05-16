@@ -1,7 +1,7 @@
-<svelte:head>
+<!-- <svelte:head>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4279476755172786"
      crossorigin="anonymous"></script>
-</svelte:head>
+</svelte:head> -->
 
     
 <script>
@@ -9,14 +9,14 @@
 import {PageWrapper,HdgWithIcon,Centre} from '$lib/cmp';
 import MathCard from '$lib/homePage/MathCard.svelte';
 import {Icons,RESOURCE_URL,API_URL} from '$lib/util';
-import Nav from '$lib/appComp/Nav.svelte';
+import NavBlog from '$lib/appComp/NavBlog.svelte';
 import BooksImages from '$lib/homePage/BooksImages.svelte';
 
 
 
 </script>
 
-<Nav/>
+<NavBlog />
 <PageWrapper>
 
     <Centre>

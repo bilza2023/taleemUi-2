@@ -1,0 +1,1 @@
+{"version":3,"file":"config-u-5BmQU4.js","sources":["../../../.svelte-kit/adapter-node/chunks/config.js"],"sourcesContent":["const API_URL = \"https://taleem.help/api\";\nconst RESOURCE_URL = \"https://taleem-media.blr1.cdn.digitaloceanspaces.com\";\nexport {\n  API_URL as A,\n  RESOURCE_URL as R\n};\n"],"names":[],"mappings":"AAAK,MAAC,OAAO,GAAG,0BAA0B;AACrC,MAAC,YAAY,GAAG;;;;"}

@@ -12,25 +12,19 @@
     let tcode; 
     /////////////////////////////////
     let questions;
-    
-    
-    
-   
     let isLogin = false;
     let isAdmin = false;
     
-    
-    
   onMount(async () => {
   try{
-      
+      // debugger;
       tcode = new URLSearchParams(location.search).get("tcode");
-      const resp = await ajaxPost( `${API_URL}/command` , { command : "getSyllabus" ,tcode } );
+      const resp = await ajaxPost( `${API_URL}/tcode/syllabus` , { tcode } );
   
   /////////////////////    
       if (resp){
         const data = await resp.json();
-        questions = data.data.syllabus; //data.data.syllabus
+        questions = data.items; //data.data.syllabus
         
         isLogin = checkToken();
         isAdmin = checkAdminToken();
@@ -55,9 +49,10 @@
     </div>
     
     {#if questions}
-    <!-- <Summary {questions} /> -->
-
-    <SyllabusComp  {questions} {tcode} uiMode={false}/>
+      
+        <!-- <Summary {questions} /> -->
+    
+    <SyllabusComp  {questions} {tcode} uiMode={true}/>
     {/if}
     
     <!-- <HdgWithIcon>{`Chapter Total: ${chapterTotalQuestions}`}</HdgWithIcon> -->

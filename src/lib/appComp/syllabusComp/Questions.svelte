@@ -4,20 +4,7 @@ import { Card } from '$lib/cmp';
 import {Icons,toast,ajaxPost,API_URL } from '$lib/util';
 export let tcode;
 export let selectedQuestions;
-export let uiMode;
     
-async function save(e,id){
-    const sortOrder = e.target.value;
-
-// console.log("e",e.target.value,"id",id);
-const resp = await ajaxPost( `${API_URL}/command` , { command : "update" ,tcode,	question:{"_id" : id , "sortOrder" : sortOrder} } );
-
-  if(resp.ok){
-    toast.push('saved');}
-    else {toast.push('failed to saved');
-  }
-}    
-     
 function getTitle(question){
     
     if (question.name && question.name !== ''){
@@ -31,12 +18,7 @@ function getTitle(question){
     }
 }
 
-function getStatusIcon(status){
-  if (status == 'empty') {return '🧊'  }
-  if (status == 'filled' ) {return Icons.PENCIL }
-  if (status == 'locked') {return '🔒' }
-  if (status == 'final') {return Icons.STUDENTCAP }
-}
+
 </script>
 {#if selectedQuestions.length <= 0 }
 <div class="flex justify-center w-full">
@@ -44,18 +26,17 @@ function getStatusIcon(status){
 </div>
 {:else}
 <div class='flex  bg-gray-700 p-2 m-2 rounded-md w-full justify-center  flex-wrap  '>
-{#each selectedQuestions as question,index}    
-    <!-- {#if question.exercise == selectedEx && question.status == 'final' } -->
+
+        {#each selectedQuestions as question,index}    
     
             <div class='w-3/12'>
 
             <Card
             title = {getTitle(question)}
             icon={Icons.TEST}
-            url ={`/player?tcode=${tcode}&filename=${question.filename}`}
+            url = {`/player?tcode=${tcode}&filename=${question.filename}`}
             >
-                
-
+             
             </Card>
             </div>
 {/each}

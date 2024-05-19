@@ -7,11 +7,11 @@
 <script>
 //@ts-nocheck
 import {PageWrapper,HdgWithIcon,Centre} from '$lib/cmp';
-import MathCard from '$lib/homePage/MathCard.svelte';
+import ExamplesCard from '../lib/appComp/examplesCard/ExamplesCard.svelte';
 import {Icons,RESOURCE_URL,API_URL} from '$lib/util';
 import NavBlog from '$lib/appComp/NavBlog.svelte';
 import BooksImages from '$lib/homePage/BooksImages.svelte';
-
+import MathCard from '../lib/homePage/MathCard.svelte';
 
 
 </script>
@@ -23,36 +23,30 @@ import BooksImages from '$lib/homePage/BooksImages.svelte';
         <HdgWithIcon bgColor='bg-stone-600' icon={Icons.BOOKS}> Your Online Home Tutor</HdgWithIcon>
     </Centre>
 
-
-<Centre>
+ <Centre>
 <div class="bg-gray-700 rounded-md w-full mx-8">
-<div class='flex  justify-center gap-1   p-2 m-2'>
+<div class='flex  justify-center gap-32    p-2 m-2'>
 
+<BooksImages tcode='fbise9mathOld' />
 <BooksImages tcode='fbise9math' />
+<BooksImages tcode='fbise9english' />
 
-<BooksImages tcode='matrices' />
 </div>
 </div>
 
 
-</Centre>
+</Centre> 
+
+
+<div class='flex justify-start m-2 p-2 '>
+    <HdgWithIcon bgColor='bg-stone-600' icon={Icons.TEST}>Math Example Questions</HdgWithIcon>
+</div>
+
+
+<ExamplesCard />
 
 <br/>
-<div class='flex justify-start m-2 p-2 '>
- <HdgWithIcon bgColor='bg-stone-600' icon={Icons.TEST}>Math Example Questions</HdgWithIcon>
-</div>
 
-<div class='flex justify-center flex-wrap gap-2 bg-gray-900 p-8 m-8 mt-1 rounded-md border-2 border-white'>
- 
-    <MathCard url= {`/player?tcode=fbise9math&id=659e87fa92faba116b079b76`} name='Ex 1.2 Q-1 pt 0'  />  
-
-    <MathCard url="/player?tcode=fbise9math&id=659e880792faba116b079d96" name='Ex 1.4 Q-1 pt 0'  />  
-    
-    <MathCard url="/player?tcode=fbise9math&id=659e881192faba116b079ecd" name='Ex 1.5 Q-1 pt 0'  />  
-
-    <MathCard url="/player?tcode=matrices&id=65aa9f91d403c62292b316bd" name='Matrix Multiplication'  />  
-
-</div>
 <br/>
 <br/>
 <br/>

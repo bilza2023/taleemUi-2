@@ -13,12 +13,12 @@ import MathCard from '$lib/homePage/MathCard.svelte';
         <MathCard  name='Cl 9 Ex 1.1 Q 2-fb'  />  
     </a>
     
-    <a href="/player?tcode=fbise9math&id=659e881192faba116b079ecd" target="_blank">
-        <MathCard  name='Blank'  />  
+    <a href="https://taleem.help/player?tcode=fbise9math&filename=fbise9math_ch_1_ex_1.1_q_66_n_What_is_a_Number_Line_" target="_blank">
+        <MathCard  name='Real Number Line'  />  
     </a>
     
-    <a href="/player?tcode=matrices&id=65aa9f91d403c62292b316bd" target="_blank">
-        <MathCard  name='Blank'  />  
+    <a href="https://taleem.help/player?tcode=fbise9math&filename=fbise9math2024_ch_1_ex_1.1_q_1" target="_blank">
+        <MathCard  name='Ex 1.1 Q-1 Pt 1'  />  
     </a>
 
 </div>

@@ -5,7 +5,7 @@ import MathCard from '$lib/homePage/MathCard.svelte';
 </script>
 
 
-<div class='flex justify-center flex-wrap gap-4 '>
+<div class='flex justify-center flex-wrap gap-4  '>
     <a href="https://taleem.help/player?tcode=fbise9mathOld&filename=fbise9math_ch_10_ex_10.1_q_1_n_What_is_a_Postulate" target="_blank"><MathCard  name='What is Postulate?'  /></a>
       
 

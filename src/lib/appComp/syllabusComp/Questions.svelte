@@ -4,6 +4,7 @@ import { Card } from '$lib/cmp';
 import {Icons,toast,ajaxPost,API_URL } from '$lib/util';
 export let tcode;
 export let selectedQuestions;
+import Qthumb from '$lib/appComp/Qthumb.svelte';
     
 function getTitle(question){
     
@@ -31,13 +32,18 @@ function getTitle(question){
     
             <div class='w-3/12'>
 
-            <Card
+            
+<div class='flex justify-center flex-wrap gap-4  '>
+    <Qthumb name={question.name} filename={question.filename} {tcode}/>
+    </div>    
+
+            <!-- <Card
             title = {getTitle(question)}
             icon={Icons.TEST}
             url = {`/player?tcode=${tcode}&filename=${question.filename}`}
             >
              
-            </Card>
+            </Card> -->
             </div>
 {/each}
 </div>

@@ -123,7 +123,7 @@ onMount(async ()=>{
       {#if uiMode==false}
         <FilterByStatusBar   {setStatus} {statusToFilterFor} 
         {ex_qs_all}
-        {ex_qs_empty}
+        {ex_qs_empty} 
         {ex_qs_filled}
         {ex_qs_locked}
         {ex_qs_final}

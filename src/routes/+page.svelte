@@ -11,8 +11,7 @@ import ExamplesCard from '../lib/appComp/examplesCard/ExamplesCard.svelte';
 import {Icons,RESOURCE_URL,API_URL} from '$lib/util';
 import NavBlog from '$lib/appComp/NavBlog.svelte';
 import BooksImages from '$lib/homePage/BooksImages.svelte';
-import MathCard from '../lib/homePage/MathCard.svelte';
-
+import Qthumb from '$lib/appComp/Qthumb.svelte';
 
 </script>
 
@@ -43,7 +42,20 @@ import MathCard from '../lib/homePage/MathCard.svelte';
 </div>
 
 
-<ExamplesCard />
+<div class='flex justify-center flex-wrap gap-4  '>
+
+    <Qthumb name="What is a Postulate" filename="fbise9math_ch_10_ex_10.1_q_1_n_What_is_a_Postulate" tcode="fbise9mathOld"/>
+
+    <Qthumb name="Real Number Line" filename="fbise9math_ch_1_ex_1.1_q_66_n_What_is_a_Number_Line_" tcode="fbise9math"/>
+    
+    <Qthumb name="" filename="fbise9math2024_ch_1_ex_1.1_q_1" tcode="fbise9math"/>
+    
+
+
+</div>    
+
+
+<!-- <ExamplesCard /> -->
 
 <br/>
 

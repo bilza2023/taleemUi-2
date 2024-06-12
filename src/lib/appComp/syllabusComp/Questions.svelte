@@ -1,11 +1,13 @@
 <script>
 //@ts-nocheck
-import { Card } from '$lib/cmp';
-import {Icons,toast,ajaxPost,API_URL } from '$lib/util';
-export let tcode;
-export let selectedQuestions;
+export let tcode ;
+export let questions;
+export let selectedChapter;
+export let selectedEx;
 import Qthumb from '$lib/appComp/Qthumb.svelte';
-    
+
+let selectedQuestions=[];
+    console.log("tcode",tcode);
 function getTitle(question){
     
     if (question.name && question.name !== ''){
@@ -18,7 +20,22 @@ function getTitle(question){
         return r;
     }
 }
+function sortBySortOrder( ){
+  selectedQuestions.sort((a, b) => a.sortOrder - b.sortOrder);
+}
+$:{
+    selectedEx;
+    selectedChapter;
+    selectedQuestions=[];
 
+   for (let i = 0; i < questions.length; i++) {
+    const question = questions[i];
+        if (question.chapter === selectedChapter && question.exercise === selectedEx && question.status == 'final'){
+                    selectedQuestions.push(question);
+    }
+    }
+    sortBySortOrder();
+}
 
 </script>
 {#if selectedQuestions.length <= 0 }
@@ -28,23 +45,19 @@ function getTitle(question){
 {:else}
 <div class='flex  bg-gray-700 p-2 m-2 rounded-md w-full justify-center  flex-wrap  '>
 
-        {#each selectedQuestions as question,index}    
-    
-            <div class='w-3/12'>
+    {#each selectedQuestions as question,index}
+      {#if question.tcode == 'fbise9math'}   
+      {#if question.chapter == selectedChapter && question.exercise == selectedEx && question.status == 'final'} 
+      
+        <div class='w-3/12'>
+        <div class='flex justify-center flex-wrap gap-4  '>
+        <Qthumb name={question.name} filename={question.filename} {tcode} exercise={question.exercise} chapter={question.chapter} {question} />
+        </div>    
+        </div>
 
-            
-<div class='flex justify-center flex-wrap gap-4  '>
-    <Qthumb name={question.name} filename={question.filename} {tcode}/>
-    </div>    
+      {/if}
+      {/if}
+    {/each}
 
-            <!-- <Card
-            title = {getTitle(question)}
-            icon={Icons.TEST}
-            url = {`/player?tcode=${tcode}&filename=${question.filename}`}
-            >
-             
-            </Card> -->
-            </div>
-{/each}
 </div>
 {/if}

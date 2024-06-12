@@ -50,9 +50,8 @@
     
     {#if questions}
       
-        <Summary {questions} />
     
-    <SyllabusComp  {questions} {tcode} uiMode={false}/>
+    <SyllabusComp  {questions} {tcode} />
     {/if}
     
     <!-- <HdgWithIcon>{`Chapter Total: ${chapterTotalQuestions}`}</HdgWithIcon> -->

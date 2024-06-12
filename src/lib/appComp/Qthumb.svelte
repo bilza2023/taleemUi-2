@@ -2,10 +2,15 @@
     export let filename;
     export let name="";
     export let tcode;
+    export let chapter;
+    export let exercise;
+    export let question;
   
     function getName() {
-    let name2 = name && name !== "" ? name : filename;
+    let name2 = name && name !== "" ? name : '';
     name2 = name2.replace(/_/g, ' ').substring(0, 35);
+    name2 = name2.replace(/\b\w/g, char => char.toUpperCase());
+
     return name2;
 }
 
@@ -13,6 +18,12 @@
 
     let defaultImageUrl = "https://taleem-media.blr1.cdn.digitaloceanspaces.com/images/qthumb/default.png";
   
+ $:{
+  chapter;
+  exercise;
+  imageUrl = `https://taleem-media.blr1.cdn.digitaloceanspaces.com/images/qthumb/${filename}.png`;
+
+ }   
     function handleError(event) {
       event.target.src = defaultImageUrl;
     }
@@ -27,6 +38,11 @@
       alt="Not found" 
       on:error={handleError}
     />
-    <p class="text-xs">&nbsp;{getName()}</p>
+
+     {#if name !== ''}
+      <p class="text-xs">{getName()}</p>
+     {:else}
+      <p class="text-xs">&nbsp;Ch:{chapter} Ex:{exercise} Q: {question.questionNo} Pt: {question.part}</p>
+     {/if}
   </div>
 </a>

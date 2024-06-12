@@ -1,13 +1,7 @@
-<!-- <svelte:head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4279476755172786"
-     crossorigin="anonymous"></script>
-</svelte:head> -->
-
     
 <script>
 //@ts-nocheck
 import {PageWrapper,HdgWithIcon,Centre} from '$lib/cmp';
-import ExamplesCard from '../lib/appComp/examplesCard/ExamplesCard.svelte';
 import {Icons,RESOURCE_URL,API_URL} from '$lib/util';
 import NavBlog from '$lib/appComp/NavBlog.svelte';
 import BooksImages from '$lib/homePage/BooksImages.svelte';
@@ -26,9 +20,9 @@ import Qthumb from '$lib/appComp/Qthumb.svelte';
 <div class="bg-gray-700 rounded-md w-full mx-8">
 <div class='flex  justify-center gap-32    p-2 m-2'>
 
-<BooksImages tcode='fbise9mathOld' />
+<!-- <BooksImages tcode='fbise9mathOld' /> -->
 <BooksImages tcode='fbise9math' />
-<BooksImages tcode='fbise9english' />
+<!-- <BooksImages tcode='fbise9english' /> -->
 
 </div>
 </div>

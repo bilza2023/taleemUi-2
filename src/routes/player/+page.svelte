@@ -11,7 +11,7 @@ import { Presentation} from '$lib/Presentation';
 import { fade } from 'svelte/transition';
 import { Howl } from 'howler';
 import Toolbar from './toolbar/Toolbar.svelte';
-
+import {SOUND_FILE_PATH} from "$lib/util";
 let  sound;
 let  soundFile=null;
 let  isPlaying=false;
@@ -44,12 +44,14 @@ const resp = await ajaxPost( `${API_URL}/tcode/getByFilename` , { tcode,filename
     toast.push("failed to load");
  }
  //////////////////////////////////////////
-  
+  debugger;
  if (questionData){
     slides = questionData.slides;
-  //  soundFile =  `${RESOURCE_URL}/mp3/${tcode}/${questionData.exercise}/${questionData.filename}.mp3`;
-  // if (tcode == "fbise9mathOld"){tcode = "fbise9math"}
-   soundFile =  `${RESOURCE_URL}/mp3/${tcode}/${questionData.exercise}/${questionData.filename}.mp3`;
+    soundFile =  SOUND_FILE_PATH + questionData.filename + '.opus';
+
+
+
+
   fixEndTime(slides); ///check why i need this?
   getStopTime(slides);
   currentSlide = slides[0];

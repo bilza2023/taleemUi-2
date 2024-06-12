@@ -9,8 +9,7 @@ import chqLogin from './chqLogin.js';
 import checkToken from './checkToken';
 import checkAdminToken from './checkAdminToken';
 import convertEqsToSlide from './convertEqToSlide.js';
-import { API_URL } from './config';
-import { RESOURCE_URL } from './config';
+import { API_URL,RESOURCE_URL, SOUND_FILE_PATH} from './config';
 import { isLoginStore,isAdminStore } from './appStore';
 import Icons from './icons';
 import uuid from './uuid';
@@ -39,7 +38,8 @@ import validateString from './validateString.js';
                     browser,
                     Icons,
                     checkToken,
-                    checkAdminToken
+                    checkAdminToken,
+                    SOUND_FILE_PATH
             }
 
 /*<div in:fade={{ delay: 300 }} out:fade={{ delay: 300 }} */

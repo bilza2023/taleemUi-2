@@ -6,7 +6,7 @@ export let textColor = 'text-white';
 
 
 
-<div class={`${bgColor} ${textColor} text-xl p-1 m-1 mb-2 mx-4`}>
+<div class={`${bgColor} ${textColor} text-lg p-1 m-1 mb-2 mx-4`}>
 
 <slot></slot>
 </div>

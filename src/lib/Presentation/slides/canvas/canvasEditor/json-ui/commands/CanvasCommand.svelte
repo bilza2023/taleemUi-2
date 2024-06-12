@@ -1,6 +1,11 @@
 <script>
     //@ts-nocheck
     import {Icons} from '$lib/util';
+    import CommonCommands from "./CommonCommands.svelte";   
+import TrNo from "./TrNo.svelte";   
+import TrText from "./TrText.svelte";   
+import TrColor from "./TrColor.svelte";   
+import TrTf from "./TrTf.svelte";   
     //--this is canvas main data this does not have item it has extra slide.extra (not silde.slideExtra)
     export let extra;
 
@@ -66,8 +71,6 @@
 </script>
  
 <div class="flex w-full text-white rounded-md justify-center bg-stone-700 p-1 m-1 border-2 border-white">
-
-
     <div class="flex justify-end gap-1">
         <button on:click={()=>displayBody = !displayBody} class="p-1 m-1 text-xs rounded-md hover:bg-slate-700">Canvas</button>
     </div>
@@ -96,6 +99,38 @@
                 </select>
             </td>
         </tr>
+        <tr>
+            <td class="border border-white p-1">Bg Img</td>
+            <td class="border border-white p-1">
+                <select  class="bg-gray-900 text-white p-1" bind:value={extra.bgImg} >
+                    <!-- do not change the sequence since it is based on index of array -->
+                    <option value="null">None</option>
+                    <option value="system_images/bg_images/paper01.jpg">paper01</option>
+                    <option value="system_images/bg_images/drywall.jpg">drywall</option>
+                    <option value="system_images/bg_images/black_board.jpg">black-board</option>
+                    <option value="system_images/bg_images/black_board_mat.jpg">black-board-mat</option>
+                    <option value="system_images/bg_images/wood.jpg">wood</option>
+                    <option value="system_images/bg_images/tinted.jpg">tinted</option>
+                    <option value="system_images/bg_images/black_mat.jpg">Black-Mat</option>
+                    <option value="system_images/bg_images/white_mat.jpg">White-Mat</option>
+                    <option value="system_images/bg_images/granite.jpg">granite</option>
+                    <option value="system_images/bg_images/gray_marble.jpg">gray-marble</option>
+                    <option value="system_images/bg_images/brown_stone.jpg">brown-stone</option>
+                    <option value="system_images/bg_images/gray_stone.jpg">gray-stone</option>
+                    <option value="system_images/bg_images/design_old.jpg">design-old</option>
+                    <option value="system_images/bg_images/blue_waves.jpg">blue-waves</option>
+                    <option value="system_images/bg_images/wall.jpg">wall</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="border border-white p-1">Opacity</td>
+            <td class="border border-white p-1">
+                <input type="number" min="0" max="1" step="0.1" bind:value={extra.bgGlobalAlpha} class="bg-gray-900 text-white p-1">
+            </td>
+        </tr>
+
         <tr>
             <td class="border border-white p-1">Bg Color</td>
             <td class="border border-white p-1">
@@ -133,7 +168,7 @@
                 <input type="color" bind:value={extra.gridLineColor} class="bg-gray-900 text-white p-1">
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td class="border border-white p-1">X-Factor</td>
             <td class="border border-white p-1">
                 <input type="number" min="0" max="100" bind:value={extra.xFactor} class="bg-gray-900 text-white p-1">
@@ -144,7 +179,8 @@
             <td class="border border-white p-1">
                 <input type="number" min="0" max="100" bind:value={extra.yFactor} class="bg-gray-900 text-white p-1">
             </td>
-        </tr>
+        </tr> -->
     </table>
+    <br>
 </div>
 {/if}

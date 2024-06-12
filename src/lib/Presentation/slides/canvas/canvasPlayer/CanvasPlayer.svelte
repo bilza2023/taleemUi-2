@@ -1,49 +1,67 @@
 <script>
-  //@ts-nocheck
-  import {onMount} from "$lib/util";
-  import DrawLibInterpretor from '../drawLib/drawLibInterpretor';
-  export let pulse;
-  export let ignoreShowAt=false;
-  let canvas;
-  let ctx;
-  export let extra={
-    canvasWidth : 1000,
-    canvasHeight : 360,
-    backgroundColor : 'gray'
-  };
-  export let items;
-  onMount(()=>{
-    // debugger;
-  });
+    //@ts-nocheck
+    import {onMount} from "$lib/util";
+    import { onDestroy } from 'svelte';
+    import DrawLibInterpretor from '../drawLib/drawLibInterpretor';
+    export let currentTime;
+   
+    export let spriteImgArray;
+    export let bgImages;
+    
+    let canvas;
+    let ctx;
 
-$:{
-  items;
-  extra;
-  if(canvas){
-  ctx = canvas.getContext('2d');
-  let drawLibInterpretor = new DrawLibInterpretor(canvas, ctx,extra.backgroundColor,extra.canvasWidth,extra.canvasHeight,extra.cellWidth,extra.cellHeight,extra.xFactor);
+    export let extra;
+    export let items;
   
-
-  try {
-    if (items){
-      drawLibInterpretor.showGrid = extra.showGrid;
-      drawLibInterpretor.gridLineWidth = extra.gridLineWidth;
-      drawLibInterpretor.gridLineColor =  extra.gridLineColor;
-      
-      drawLibInterpretor.interpret(items,pulse,ignoreShowAt);
-    } else {
-      drawLibInterpretor.jsonError('Invalid JSON or missing payload field');
+function gameLoop(){
+    try {
+      if (items){
+        drawLibInterpretor.showGrid = extra.showGrid;
+        drawLibInterpretor.gridLineWidth = extra.gridLineWidth;
+        drawLibInterpretor.gridLineColor =  extra.gridLineColor;
+        drawLibInterpretor.cellWidth =  extra.cellWidth;
+        drawLibInterpretor.cellHeight =  extra.cellHeight;
+///////////////////////////////////
+        // debugger;
+        drawLibInterpretor.interpret(items,currentTime,extra);
+      } else {
+        drawLibInterpretor.jsonError('Invalid JSON or missing payload field');
+      }
+    } catch (error) {
+      drawLibInterpretor.jsonError();
     }
-  } catch (error) {
-    drawLibInterpretor.jsonError();
-  }
- }
+   
 }    
+//////////////////////////////////
+async function init(){
+  if(canvas){
+    if(interval){clearInterval(interval);}
+    //////////////////////////////////////////////
+    ctx = canvas.getContext('2d');
+      ////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+    
+    ////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+    drawLibInterpretor = new DrawLibInterpretor(canvas, ctx,extra.backgroundColor,extra.canvasWidth,extra.canvasHeight,extra.cellWidth,extra.cellHeight,extra.xFactor,spriteImgArray,bgImages);
+  }
+  interval = setInterval(gameLoop,20);
+}
+//////////////////////////////////
+let interval;
+let drawLibInterpretor;
+onMount(async ()=>{
+  await init();
+});  
+onDestroy(() => {
+		clearInterval(interval);
+});
 
 </script>
 
 <div class="flex justify-center w-full" >
-<canvas 
-class="w-full m-2"
-bind:this={canvas} width={extra.canvasWidth} height={extra.canvasHeight}></canvas>
+  <canvas 
+  class="w-full m-2"
+  bind:this={canvas} width={extra.canvasWidth} height={extra.canvasHeight}></canvas>
 </div>

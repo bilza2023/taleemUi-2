@@ -4,7 +4,7 @@
 export let icon="📜";
 export let title='The Title';
 export let url = 'https://google.com';
-export let titleCharsCount = 25;
+export let titleCharsCount = 20;
 //------------------
 function firstXChars(string) {
   return string.slice(0, titleCharsCount);
@@ -18,7 +18,7 @@ border-4  border-blue-700 text-center
 hover:border-blue-200"><!--outer -div-->
 
 <a  class="hover:bg-gray-300  rounded-lg" 
- href={url} target="_blank">
+ href={url} target="">
 
 <div class="flex flex-col"><!--inner -div-->
     <!-- //icon -->

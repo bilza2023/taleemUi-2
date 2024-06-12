@@ -1,8 +1,9 @@
 <script>
     //@ts-nocheck
+import { onMount, onDestroy } from "svelte";
 ///////////////////////////////////////////////////////
-    import GridCommand from "./commands/GridCommand.svelte";
     import TextCommand from "./commands/TextCommand.svelte";
+    import SpriteCommand from "./commands/SpriteCommand.svelte";
     import ParaCommand from "./commands/ParaCommand.svelte";
     import RayCommand from "./commands/RayCommand.svelte";
     import RectCommand from "./commands/RectCommand.svelte";
@@ -13,21 +14,30 @@
     import DotCommand from "./commands/DotCommand.svelte";
     import RepeatTextCommand from "./commands/RepeatTextCommand.svelte";
     import RepeatDotCommand from "./commands/RepeatDotCommand.svelte";
-    import ImageCommand from "./commands/ImageCommand.svelte";
     import TriangleCommand from "./commands/TriangleCommand.svelte";
     import PolygonCommand from "./commands/PolygonCommand.svelte";
     import AngleSymbolCommand from "./commands/AngleSymbolCommand.svelte";
-    import PerpendSymbolCommand from "./commands/PerpendSymbolCommand.svelte";
     import BezierCommand from "./commands/BezierCommand.svelte";
+    import SysImgCommand from "./commands/SysImgCommand.svelte";
 
 ///////////////////////////////////////////////////////   
     export let item;
     export let redraw;
-    
+    let interval;
+ onMount(async()=>{
+    interval = setInterval(redraw,1000)
+ });
+ onDestroy(() => {
+        clearInterval(interval);
+    });  
 </script>
 <div >
 {#if item}
 
+    {#if item.extra.command === 'sprite'}
+    <SpriteCommand bind:item={item.extra}/>
+    {/if}
+   
     {#if item.extra.command === 'para'}
     <ParaCommand bind:item={item.extra}/>
     {/if}
@@ -40,12 +50,12 @@
     <BezierCommand bind:item={item.extra}/>
     {/if}
    
-    {#if item.extra.command === 'perpendSymbol'}
-    <PerpendSymbolCommand bind:item={item.extra}/>
-    {/if}
+   
+    
     {#if item.extra.command === 'angleSymbol'}
     <AngleSymbolCommand bind:item={item.extra}/>
     {/if}
+    
     {#if item.extra.command === 'polygon'}
     <PolygonCommand bind:item={item.extra}/>
     {/if}
@@ -62,10 +72,6 @@
     <RepeatTextCommand bind:item={item.extra}/>
     {/if}
   
-    {#if item.extra.command === 'image'}
-    <ImageCommand bind:item={item.extra}/>
-    {/if}
-  
     {#if item.extra.command === 'repeatDot'}
     <RepeatDotCommand bind:item={item.extra}/>
     {/if}
@@ -78,11 +84,7 @@
     <DotCommand bind:item={item.extra}/>
     {/if}
  
-    {#if item.extra.command === 'grid'}
-    <GridCommand bind:item={item.extra}/>
-    {/if}
-
-
+  
     {#if item.extra.command === 'text'}
     <TextCommand bind:item={item.extra} {redraw}/>
     {/if}
@@ -97,6 +99,10 @@
 
     {#if item.extra.command === 'line'}
     <LineCommand bind:item={item.extra} />
+    {/if}
+   
+    {#if item.extra.command === 'sysImage'}
+    <SysImgCommand bind:item={item.extra} />
     {/if}
 
     {/if}

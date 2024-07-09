@@ -1,19 +1,21 @@
 //@ts-nocheck
 import {getNewItem} from '$lib/Presentation';
+// getProp creates prop for any type number , boolean , string , we do not need seperate property class for int , string etc
+import getProp from '../getProp';
 /**
-   *31-may-2024 
-   * addNewItem is different from getNewItem. In Presentation lib every slide basically has its content placed in "items". we use "getNewItem" to get a generic Presentation item for a slide and then using  addNewItem(data) assign the data to the newly created item.extra.
-   
-   * We can write any number of consumer functions  (like addEllipse,addCircle etc)for addNewItem(data) and it will create a blank item and assign item.extra to data. 
-   *
-   *
-   */
-   function addNewItem(data,items){
-    const newItem = getNewItem();
-    newItem.extra = data;      
-    items.unshift(newItem);      
-    items = [...items];
-  }
+ *31-may-2024 
+* addNewItem is different from getNewItem. In Presentation lib every slide basically has its content placed in "items". we use "getNewItem" to get a generic Presentation item for a slide and then using  addNewItem(data) assign the data to the newly created item.extra.
+
+* We can write any number of consumer functions  (like addEllipse,addCircle etc)for addNewItem(data) and it will create a blank item and assign item.extra to data. 
+*
+*/
+
+function addNewItem(data,items){
+  const newItem = getNewItem();
+  newItem.extra = data;      
+  items.unshift(newItem);      
+  items = [...items];
+}
 
 function randNo(length=8){
     const digits = '0123456789';
@@ -29,15 +31,16 @@ function addReqExtraFields(obj,command,color="black"){
   obj.command = command;
   obj.name = command + "_" +randNo();
   
-  obj.color = color;
+  obj.color = getProp(color),
+  // obj.setCommands = [];
   //hide at is used when it is larger than showAt. for other use cases use other variables.e.g use "visibility for blinking"
-  obj.hideAt = 0;
+  // obj.hideAt = 0;
   obj.showAt = 0;
-  obj.visibility = 0;
-  obj.globalAlpha = 1;
+  // obj.visibility = 0;
+  obj.globalAlpha = getProp(1);
 
-  obj.gap= 0;
-  obj.dash= 0;
+  obj.gap= getProp(0);
+  obj.dash= getProp(0);
 
   obj.shadowOffsetX = 0;
   obj.shadowOffsetY = 0;
@@ -50,17 +53,59 @@ function addReqExtraFields(obj,command,color="black"){
 ////////======Add Functions 
 //////////////////////////////////
 
+function addLine(items){
+  const obj ={
+            "x1": getProp(2),
+            "y1": getProp(2),
+            "x2": getProp(8),
+            "y2": getProp(8),
+            "lineWidth": getProp(2),              
+  };
+  addNewItem(addReqExtraFields(obj,"line","red"),items); 
+}
+
+function addLines(items){
+  const obj ={
+            "x": 3,
+            "y": 3,
+            "arr": "2,0,0,-1,3,2,-3,2,0,-1,-2,0,0,-2",
+            "lineWidth": getProp(1),
+  };
+  addNewItem(addReqExtraFields(obj,"lines","yellow"),items); 
+}
+
+function addRect(items){
+  // debugger;
+    const obj = {
+          "x": getProp(5),
+          "y": getProp(5),
+          "width": getProp(100),
+          "height": getProp(100),
+          "filled": getProp(false),
+          "lineWidth": getProp(1),
+          };
+          addNewItem(addReqExtraFields(obj,"rect","red"),items); 
+  }
+function addText(items){
+  const obj ={
+    "text": getProp("Hello"),
+    "x": getProp(4),
+    "y": getProp(4),
+    "font": "20px Arial",
+  };
+addNewItem(addReqExtraFields(obj,"text","black"),items); 
+}
  function addEllipse(items){
   const obj = { 
-    "x": 15,
-    "y": 7,
-    "radiusX": 50,
-    "radiusY": 100,
-    "rotation": 0,
-    "startAngle": 0,
-    "endAngle": 360,
-    "lineWidth": 1,
-    "fill": false,
+    "x":          getProp(15),
+    "y":          getProp(7),
+    "radiusX":    getProp(50),
+    "radiusY":    getProp(100),
+    "rotation":   getProp(0),
+    "startAngle": getProp(0),
+    "endAngle":   getProp(360),
+    "lineWidth":  getProp(1),
+    "fill":       getProp(false),
        
     };
 
@@ -68,16 +113,17 @@ function addReqExtraFields(obj,command,color="black"){
   }
   function addCircle(items){
     const obj = {
-      "x": 5,
-      "y": 5,
-      "radius": 100,
-      "startAngle": 0 ,
-      "endAngle": 360 ,
-      "fill": false,
-      "lineWidth": 1,
+      "x": getProp(5),
+      "y": getProp(5),
+      "radius": getProp(100),
+      "startAngle": getProp(0) ,
+      "endAngle": getProp(360) ,
+      "fill": getProp(false),
+      "lineWidth": getProp(1),
       };
     addNewItem(addReqExtraFields(obj,"circle","red"),items);
   }
+  //-----not implemented
   function addBezier(items){
     // debugger;
     const obj = {
@@ -93,17 +139,7 @@ function addReqExtraFields(obj,command,color="black"){
     addNewItem(addReqExtraFields(obj,"bezier","red"),items);      
     
   }
-  function addRect(items){
-    const obj = {
-          "x": 5,
-          "y": 5,
-          "width": 100,
-          "height": 100,
-          "filled": false,
-          "lineWidth": 1,
-          };
-          addNewItem(addReqExtraFields(obj,"rect","red"),items); 
-  }
+  //-----not implemented
   function addAngleSymbol(items){
     const obj = {
           "x": 20,
@@ -117,15 +153,16 @@ function addReqExtraFields(obj,command,color="black"){
           };
           addNewItem(addReqExtraFields(obj,"angleSymbol","red"),items); 
   }
+  
   function addDot(items){
     const obj = {
-          "x": 5,
-          "y": 5,
-          "label": "label",
-          "dot_width": 10,
-          "text_color": "yellowbezier",
-          "text_size": 24,
-          "fill": true,
+          "x": getProp(5),
+          "y": getProp(5),
+          "label": getProp("label"),
+          "dot_width": getProp(10),
+          "text_color": getProp("yellowbezier"),
+          "text_size": getProp(24),
+          "fill": getProp(true),
           };
           addNewItem(addReqExtraFields(obj,"dot","red"),items); 
   }
@@ -152,53 +189,37 @@ function addReqExtraFields(obj,command,color="black"){
     };
     addNewItem(addReqExtraFields(obj,"polygon","red"),items); 
   }
+
   function addTri(items){
     const obj ={
-              "x1": 2,
-              "y1": 2,
-              "x2": 2,
-              "y2": 8,
-              "x3": 10,
-              "y3": 10,
-              "lineWidth": 2,
-              "filled": false,
+              "x1": getProp(6),
+              "y1": getProp(2),
+              "x2": getProp(1),
+              "y2": getProp(10),
+              "x3": getProp(11),
+              "y3": getProp(10),
+              "lineWidth": getProp(2),
+              "filled": getProp(false),
     };
     addNewItem(addReqExtraFields(obj,"triangle","red"),items); 
   }
-  function addLines(items){
-    const obj ={
-              "x": 3,
-              "y": 3,
-              "arr": "2,0,0,-1,3,2,-3,2,0,-1,-2,0,0,-2",
-              "lineWidth": 1,
-    };
-    addNewItem(addReqExtraFields(obj,"lines","yellow"),items); 
-  }
-  function addLine(items){
-    const obj ={
-              "x1": 2,
-              "y1": 2,
-              "x2": 8,
-              "y2": 8,
-              "lineWidth": 2,              
-    };
-    addNewItem(addReqExtraFields(obj,"line","red"),items); 
-  }
-  
+ 
+
   function addRay(items){
     const obj ={
-              "x0": 2,
-              "y0": 2,
-              "x1": 8,
-              "y1": 8,
-              "lineWidth": 2,
-              "arrowWidth": 8,
-              "arrowHeight": 12,
+              "x0":           getProp(2),
+              "y0":           getProp(2),
+              "x1":           getProp(8),
+              "y1":           getProp(8),
+              "lineWidth":    getProp(2),
+              "arrowWidth":   getProp(8),
+              "arrowHeight":  getProp(12),
               "startArrow": true,
               "endArrow": true,
     };
     addNewItem(addReqExtraFields(obj,"ray","yellow"),items); 
   }
+
   function addRepeatDot(items){
     const obj ={
       "numberOfDots": 5,
@@ -212,12 +233,12 @@ function addReqExtraFields(obj,command,color="black"){
   }
   function addRepeatText(items){
     const obj ={
-      "textArray": "1,2,3,4",
-      "initialX": 4,
-      "initialY": 4,
-      "xFactor": 4,
-      "yFactor": 0,
-      "font": "20px Arial"
+      "textArray":  "1,2,3,4",
+      "initialX":   getProp(4),
+      "initialY":   getProp(4),
+      "xFactor":    getProp(4),
+      "yFactor":    getProp(0),
+      "font":       "20px Arial"
     };
     addNewItem(addReqExtraFields(obj,"repeatText","red"),items); 
   }
@@ -225,32 +246,42 @@ function addReqExtraFields(obj,command,color="black"){
   function addPara(items){
     const obj ={
       "text": "Hello",
-      "x": 4,
-      "y": 4,
+      "x": getProp(4),
+      "y": getProp(4),
       "font": "20px Arial",
-     "lineHeightOffset" : 0,
-     "xOffset"        : 0,
+      "lineHeightOffset" : 0,
+      "xOffset"        : 0,
   };
   addNewItem(addReqExtraFields(obj,"para","red"),items); 
   }
-  function addText(items){
-    const obj ={
-      "text": "Hello",
-      "x": 4,
-      "y": 4,
-      "font": "20px Arial",
-    };
-  addNewItem(addReqExtraFields(obj,"text","black"),items); 
-  }
+  
   function addSysImage(items){
     const obj ={
       "src": "system_images/gen/wood.jpg",
-      "x": 1,
-      "y": 1,
-      "width": 5,
-      "height": 4,
+      "x": getProp(1),
+      "y": getProp(1),
+      "width":  getProp(5),
+      "height": getProp(4),
     };
   addNewItem(addReqExtraFields(obj,"sysImage"),items); 
+  }
+  
+  async function addImage(items){
+const img = new Image();
+img.src = 'https://taleem-media.blr1.cdn.digitaloceanspaces.com/bucket/wood.jpg';
+
+img.onload = () => {
+            const obj ={
+              "src": 'wood',
+              "image": img,
+              "x": 0,
+              "y": 0,
+              "width": 40,
+              "height": 15,
+            };
+          addNewItem(addReqExtraFields(obj,"image"),items);
+        };
+    
   }
   function addSprite(items){
     // debugger;
@@ -258,8 +289,8 @@ function addReqExtraFields(obj,command,color="black"){
       "spriteId": "000",
       "sheet": "students",
       "sheetItem": "student_w_tablet",
-      "dx": 0,
-      "dy": 0,
+      "dx": getProp(0),
+      "dy": getProp(0),
       "wFactor" : 1,
       "hFactor" : 1,
     };
@@ -288,7 +319,8 @@ export {
                 addPara,
                 addText,
                 addSprite,
-                addSysImage
+                addSysImage,
+                addImage
  }
 
  ////////////////////////////////////////////////////////////////

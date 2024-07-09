@@ -4,7 +4,8 @@
     export let tcode;
     export let chapter;
     export let exercise;
-    export let question;
+    export let questionNo;
+    export let part;
   
     function getName() {
     let name2 = name && name !== "" ? name : '';
@@ -42,7 +43,7 @@
      {#if name !== ''}
       <p class="text-xs">{getName()}</p>
      {:else}
-      <p class="text-xs">&nbsp;Ch:{chapter} Ex:{exercise} Q: {question.questionNo} Pt: {question.part}</p>
+      <p class="text-xs">&nbsp;Ch:{chapter} Ex:{exercise} Q: {questionNo} Pt: {part} </p>
      {/if}
   </div>
 </a>

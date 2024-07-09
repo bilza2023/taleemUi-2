@@ -7,7 +7,7 @@ export let selectedEx;
 import Qthumb from '$lib/appComp/Qthumb.svelte';
 
 let selectedQuestions=[];
-    console.log("tcode",tcode);
+    // console.log("tcode",tcode);
 function getTitle(question){
     
     if (question.name && question.name !== ''){
@@ -24,17 +24,22 @@ function sortBySortOrder( ){
   selectedQuestions.sort((a, b) => a.sortOrder - b.sortOrder);
 }
 $:{
+    debugger;
     selectedEx;
     selectedChapter;
     selectedQuestions=[];
 
    for (let i = 0; i < questions.length; i++) {
     const question = questions[i];
-        if (question.chapter === selectedChapter && question.exercise === selectedEx && question.status == 'final'){
+    //--no need to check for tcode ... since the get syllabus from api is already tcode based
+    if (question.chapter === selectedChapter && question.exercise === selectedEx ){
+        if (question.status === 'final' ){
                     selectedQuestions.push(question);
-    }
+        }
+        }
     }
     sortBySortOrder();
+    selectedQuestions = selectedQuestions;
 }
 
 </script>
@@ -46,17 +51,13 @@ $:{
 <div class='flex  bg-gray-700 p-2 m-2 rounded-md w-full justify-center  flex-wrap  '>
 
     {#each selectedQuestions as question,index}
-      {#if question.tcode == 'fbise9math'}   
-      {#if question.chapter == selectedChapter && question.exercise == selectedEx && question.status == 'final'} 
       
         <div class='w-3/12'>
         <div class='flex justify-center flex-wrap gap-4  '>
-        <Qthumb name={question.name} filename={question.filename} {tcode} exercise={question.exercise} chapter={question.chapter} {question} />
+        <Qthumb name={question.name} filename={question.filename} {tcode} exercise={question.exercise} chapter={question.chapter} questionNo={question.questionNo} part={question.part} />
         </div>    
         </div>
 
-      {/if}
-      {/if}
     {/each}
 
 </div>

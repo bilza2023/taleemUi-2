@@ -1,19 +1,29 @@
 <script>
-    //@ts-nocheck
-    import addUTFIcon from "./addUTFIcon";
-    import UTFDD from "./UTFDD.svelte";
-    import CommonCommands from "./CommonCommands.svelte";   
-import TrNo from "./TrNo.svelte";   
+
+//@ts-nocheck
+import addUTFIcon from "./addUTFIcon";
+import UTFDD from "./UTFDD.svelte";
+import CommonCommands from "./CommonCommands.svelte";   
+
+
+import TrNoWithSet from "./TrNoWithSet.svelte";   
+import TrStrWithSet from "./TrStrWithSet.svelte";   
+import ShadowCommands from "./ShadowCommands.svelte";   
+
 import TrText from "./TrText.svelte";   
+import TrPropText from "../commonCommands/TrPropText.svelte";
+import TrPropNumber from "../commonCommands/TrPropNumber.svelte";
 import TrColor from "./TrColor.svelte";   
 import TrTf from "./TrTf.svelte";   
-    export let item;
-    export let redraw;
+     
+export let item;
+export let redraw;
 
-    function action(e){
-        addUTFIcon(e,item);
-        redraw();
-    }
+
+function action(e){
+    addUTFIcon(e,item);
+    redraw();
+}
     function randNo(length=8){
     const digits = '0123456789';
   let result = '';
@@ -71,7 +81,7 @@ import TrTf from "./TrTf.svelte";
 
 <div class="flex flex-col w-full ">
     <table class="border-collapse border-2 border-white">
-            
+<!--             
         <tr>
             <td class="border border-white p-1">Templates</td>
             <td class="border border-white p-1">
@@ -82,21 +92,25 @@ import TrTf from "./TrTf.svelte";
                     <option value="jt">JT</option>
                 </select>
             </td>
-        </tr>
+        </tr> -->
+ 
         <tr>
             <td class="border border-white p-1">Add Icon</td>
             <td class="border border-white p-1">
 <UTFDD {action}/>
             </td>
         </tr>
-        <TrText title="text" bind:itemFiled={item.text} />  
-        <TrNo title="x" bind:itemFiled={item.x} />  
-        <TrNo title="y" bind:itemFiled={item.y} />  
-        <TrText title="font" bind:itemFiled={item.font} />  
+       
+        <TrPropText title="text"  bind:extra={item}  />  
+        <TrPropNumber title="x"  bind:extra={item}  />  
+        <TrPropNumber title="y"  bind:extra={item}  />  
+        
+        <TrText title="font" bind:extra={item} />  
        
         
         
-<CommonCommands  bind:item={item}/>
+<CommonCommands  bind:item={item} />
+<ShadowCommands  bind:item={item} />
     </table>
 </div>
 

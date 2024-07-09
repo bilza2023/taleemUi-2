@@ -12,6 +12,7 @@ import { fade } from 'svelte/transition';
 import { Howl } from 'howler';
 import Toolbar from './toolbar/Toolbar.svelte';
 import {SOUND_FILE_PATH} from "$lib/util";
+
 let  sound;
 let  soundFile=null;
 let  isPlaying=false;
@@ -42,9 +43,9 @@ const resp = await ajaxPost( `${API_URL}/tcode/getByFilename` , { tcode,filename
     slides = questionData.slides;
  }else {
     toast.push("failed to load");
- }
+ } 
  //////////////////////////////////////////
-  debugger;
+  // debugger;
  if (questionData){
     slides = questionData.slides;
     soundFile =  SOUND_FILE_PATH + questionData.filename + '.opus';
@@ -149,26 +150,33 @@ function updateTimeDiff() {
 }
 async function loadSound() {
   try {
-  // debugger;
-  
-  
     sound = new Howl({
       src: [soundFile],
       volume: 1.0,
       html5: true,
       onload: function () {
         maxSliderValue = sound.duration();
-        console.log("sound loaded..");
+        console.log("Sound loaded..");
       },
       onloaderror: function (id, error) {
-        // console.error("Error loading sound:", error);
         state = 'error';
+        console.error("Error loading sound:", error);
       },
+      onprogress: function () {
+        const buffered = sound.buffered();
+        if (buffered.length) {
+          const percentLoaded = (buffered[0].end / sound.duration()) * 100;
+          // console.log(`Sound loaded: ${percentLoaded.toFixed(2)}%`);
+          toast.push(`Sound loaded: ${percentLoaded.toFixed(2)}%`);
+        }
+      }
     });
   } catch (e) {
-    toast.push('failed to load sound');
+    toast.push('Failed to load sound');
+    console.error(e);
   }
 }
+
 function setCurrentSlide(){
 //  debugger;
 const r = sound.seek();
@@ -189,6 +197,7 @@ function showToolbar(){
   } 
   
 }
+
 </script> 
 
 

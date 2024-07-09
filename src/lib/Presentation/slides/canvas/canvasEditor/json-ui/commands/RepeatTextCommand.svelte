@@ -1,6 +1,13 @@
 <script>
 //@ts-nocheck
-import CommonCommands from "./CommonCommands.svelte";   
+import CommonCommands from "./CommonCommands.svelte"; 
+import ShadowCommands from "./ShadowCommands.svelte";   
+import TrNoWithSet from "./TrNoWithSet.svelte";   
+import TrStrWithSet from "./TrStrWithSet.svelte";   
+
+import TrPropText from "../commonCommands/TrPropText.svelte";
+import TrPropNumber from "../commonCommands/TrPropNumber.svelte";
+
 import TrNo from "./TrNo.svelte";   
 import TrText from "./TrText.svelte";   
 import TrColor from "./TrColor.svelte";   
@@ -9,7 +16,7 @@ export let item;
 
 function applyTemplate(event) {
         // Your logic here to handle template changes
-        console.log("Template changed:", event.target.value);
+        // console.log("Template changed:", event.target.value);
         switch (event.target.value) {
             
             case 'h-ruler':
@@ -38,13 +45,13 @@ function applyTemplate(event) {
             default:
                 break;
         }
-    }
+}
 </script>
 
 <div class="flex flex-col w-full">
     <table class="border-collapse border-2 border-white">
 
-        <tr>
+        <!-- <tr>
             <td class="border border-white p-1">Templates</td>
             <td class="border border-white p-1">
                 <select on:change={applyTemplate} class="bg-gray-900 text-white p-1">
@@ -53,17 +60,18 @@ function applyTemplate(event) {
                     <option value="v-ruler">V-Ruler</option>
                 </select>
             </td>
-        </tr>
+        </tr> -->
         
-        <TrText title="Text Array"  bind:itemFiled={item.textArray} />
-        <TrNo title="initialX"      bind:itemFiled={item.initialX} />
-        <TrNo title="initialY"      bind:itemFiled={item.initialY} />
-        <TrNo title="xFactor"       bind:itemFiled={item.xFactor} />
-        <TrNo title="yFactor"       bind:itemFiled={item.yFactor} />
-        <TrText title="font"        bind:itemFiled={item.font} />
+        <TrText     title="textArray"     bind:extra={item} />
+        <TrPropNumber       title="initialX"      bind:extra={item} /> 
+        <TrPropNumber       title="initialY"      bind:extra={item} />
+        <TrPropNumber       title="xFactor"       bind:extra={item} min="-300" max="100" />
+        <TrPropNumber       title="yFactor"       bind:extra={item} min="-300" max="100" />
+       
+        <TrText title="font"        bind:extra={item} />
         
         
 <CommonCommands  bind:item={item}/>
-
+<ShadowCommands  bind:item={item} />
 </table>
 </div>

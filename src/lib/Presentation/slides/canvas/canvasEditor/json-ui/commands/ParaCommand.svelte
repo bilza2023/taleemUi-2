@@ -1,11 +1,18 @@
 <script>
     //@ts-nocheck
-    import CommonCommands from "./CommonCommands.svelte";   
+import CommonCommands from "./CommonCommands.svelte";   
+import ShadowCommands from "./ShadowCommands.svelte";   
+
+import TrNoWithSet from "./TrNoWithSet.svelte";   
+import TrStrWithSet from "./TrStrWithSet.svelte";   
 import TrNo from "./TrNo.svelte";   
 import TrText from "./TrText.svelte";   
+import TrTextArea from "./TrTextArea.svelte";   
 import TrColor from "./TrColor.svelte";   
 import TrTf from "./TrTf.svelte";   
-import TrTextArea from "./TrTextArea.svelte";   
+import TrPropNumber from "../commonCommands/TrPropNumber.svelte";   
+import TrPropText from "../commonCommands/TrPropText.svelte";
+
     export let item;
     function randNo(length=8){
     const digits = '0123456789';
@@ -22,17 +29,25 @@ import TrTextArea from "./TrTextArea.svelte";
 <div class="flex flex-col w-full">
     <table class="border-collapse border-2 border-white">
         
-        <TrTextArea title="Text"        bind:itemFiled={item.text} />
-        <TrNo title="X"             bind:itemFiled={item.x} />
-        <TrNo title="Y"             bind:itemFiled={item.y} />
-        <TrText title="Font"        bind:itemFiled={item.font} />
+        <TrTextArea title="text"   bind:extra={item} />
+ 
         
-        <TrNo title="lineHeightOffset" bind:itemFiled={item.lineHeightOffset} />
-        <TrNo title="xOffset" bind:itemFiled={item.xOffset} />
+        <TrPropNumber title="x" bind:extra={item}  />  
+        <TrPropNumber title="y"  bind:extra={item}  /> 
+
+        <TrText title="font" bind:extra={item} />  
+       
+
+
+        <!-- <TrText title="font"  bind:extra={item}  />   -->
+        <TrNo title="lineHeightOffset"  bind:extra={item}  />  
+
+        <TrNo title="xOffset" bind:extra={item}  />  
+
       
         
 <CommonCommands  bind:item={item}/>
-
+<ShadowCommands  bind:item={item} />
 </table>
 </div>
 

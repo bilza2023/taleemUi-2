@@ -6,13 +6,14 @@ import Icons from "../../../../icons";
  export let moveDown;
  export let clone;
  export let del;
+ export let copyItem;
 
 
 </script>
 
 <div class="flex w-full justify-around bg-gray-900 text-white  rounded-md">
 
-    <div class="flex justify-end gap-1">
+    <div class="flex  justify-end  gap-1">
     
         <button 
         on:click={()=>moveUp(index)}
@@ -26,6 +27,10 @@ import Icons from "../../../../icons";
         <button 
         on:click={()=>clone(index)}
         class=" p-1 m-1 text-xs rounded-md hover:bg-slate-700">🐑</button>
+
+        <button 
+        on:click={()=>copyItem(index)}
+        class=" p-1 m-1 text-xs rounded-md hover:bg-slate-700">📃</button>
         
         <button 
         on:click={()=>del(index)}

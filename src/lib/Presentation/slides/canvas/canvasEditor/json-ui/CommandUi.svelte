@@ -1,5 +1,6 @@
 <script>
-    //@ts-nocheck
+ //---here the item should be named extra since IT IS item.extra and not item so that creates confusion.
+ //@ts-nocheck
 import { onMount, onDestroy } from "svelte";
 ///////////////////////////////////////////////////////
     import TextCommand from "./commands/TextCommand.svelte";
@@ -19,6 +20,7 @@ import { onMount, onDestroy } from "svelte";
     import AngleSymbolCommand from "./commands/AngleSymbolCommand.svelte";
     import BezierCommand from "./commands/BezierCommand.svelte";
     import SysImgCommand from "./commands/SysImgCommand.svelte";
+    import ImageCommand from "./commands/ImageCommand.svelte";
 
 ///////////////////////////////////////////////////////   
     export let item;
@@ -34,6 +36,9 @@ import { onMount, onDestroy } from "svelte";
 <div >
 {#if item}
 
+    {#if item.extra.command === 'image'}
+    <ImageCommand bind:item={item.extra}/>
+    {/if}
     {#if item.extra.command === 'sprite'}
     <SpriteCommand bind:item={item.extra}/>
     {/if}

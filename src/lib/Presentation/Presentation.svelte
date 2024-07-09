@@ -14,6 +14,7 @@
     import { figs } from "./sprite/figs";
     import { alphabets } from "./sprite/alphabets";
     import { people } from "./sprite/people";
+    import inspect from "./inspect.js";
     let spriteImgArray  = []; 
 
     let bgImages  = []; 
@@ -25,6 +26,12 @@
     export let displayMode = true;
       
     let ready = false;
+
+$:{
+    currentSlide;
+    inspect(currentSlide);
+}   
+
 onMount(async()=>{
     
     
@@ -89,8 +96,44 @@ const wall = new Image(); wall.src = P + "wall.jpg";
 bgImages.push({"name" : P + "wall.jpg" , "img" : wall});
 
 
+
+
+
 ready = true;
-}) ;  
+}) ; 
+
+$:{
+    currentSlide;
+    loadImages();
+}
+let playerImages = [];
+async function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = (err) => reject(err);
+    img.src = src;
+  });
+}
+
+async function loadImages() {
+  playerImages = [];
+  
+  for (let i = 0; i < currentSlide.items.length; i++) {
+    const item = currentSlide.items[i];
+    if (item.extra.command == 'image') {
+      try {
+        
+        const url = 'https://taleem-media.blr1.cdn.digitaloceanspaces.com/bucket/'+ item.extra.src +'.jpg';
+        const img = await loadImage( url);
+        playerImages.push({ image: img, src: img.src , id : item._id });
+      } catch (err) {
+        console.error('Error loading image:', err);
+      }
+    }
+    // console.log("playerImages",playerImages);
+  }
+}
 </script>
 <!-- <a href="system_images/bg_images/white_mat.jpg">ss</a> -->
 <!-- TblStr -->
@@ -162,6 +205,7 @@ ready = true;
             extra={currentSlide.extra}
             {spriteImgArray}
             {bgImages}
+            {playerImages}
         />
     {:else}
         <CanvasEditor
@@ -173,6 +217,7 @@ ready = true;
             endTime={currentSlide.endTime}
             {spriteImgArray}
             {bgImages}
+            {playerImages}
         />
     {/if}
 {/if}

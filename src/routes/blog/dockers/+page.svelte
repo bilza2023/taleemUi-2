@@ -1,10 +1,10 @@
 <script>
-import {HdgWithIconCentre,HdgWithIcon,P} from "$lib/cmp";
+import {HdgWithIcon,P} from "$lib/cmp";
 </script>
 
 <div class="bg-gray-800 p-2 text-white min-h-screen w-full">
  
-<HdgWithIconCentre>Dockers Basics</HdgWithIconCentre>
+<HdgWithIcon>Dockers Basics</HdgWithIcon>
 
 <P>
     Docker is a containerization platform that simplifies the process of developing, deploying, and running applications. It allows developers to package their applications and all their dependencies into a standardized unit called a container. These containers are isolated from each other and from the underlying infrastructure, making them portable and consistent across different environments. Docker uses container technology to virtualize the operating system, enabling applications to run in a lightweight and efficient manner.
